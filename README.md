@@ -1,110 +1,134 @@
-# FHEVM Hardhat Template
+❤️ EncryptedCertificationFilter — Private Match (FHEVM dApp)
 
-A Hardhat-based template for developing Fully Homomorphic Encryption (FHE) enabled Solidity smart contracts using the
-FHEVM protocol by Zama.
+A decentralized fully homomorphic encrypted matchmaking dApp on Ethereum (Sepolia testnet) using Zama’s FHEVM protocol.
+Profiles and preferences are encrypted → matched on-chain → only the final match result is decryptable.
+No data leaks. No exposure of personal information.
 
-## Quick Start
+⚡ Features
 
-For detailed instructions see:
-[FHEVM Hardhat Quick Start Tutorial](https://docs.zama.ai/protocol/solidity-guides/getting-started/quick-start-tutorial)
+Publish encrypted user profiles (age, gender, interests, region)
 
-### Prerequisites
+Submit encrypted match preferences
 
-- **Node.js**: Version 20 or higher
-- **npm or yarn/pnpm**: Package manager
+Homomorphic computation of match compatibility directly on-chain
 
-### Installation
 
-1. **Install dependencies**
+Zero knowledge of inputs — full privacy preserved
 
-   ```bash
-   npm install
-   ```
+Modern dual-column glassmorphic UI built with pure HTML + CSS
 
-2. **Set up environment variables**
+Powered by Zama Relayer SDK v0.3.0 and Ethers.js v6
 
-   ```bash
-   npx hardhat vars set MNEMONIC
+🛠 Quick Start
+Prerequisites
 
-   # Set your Infura API key for network access
-   npx hardhat vars set INFURA_API_KEY
+Node.js ≥ 20
 
-   # Optional: Set Etherscan API key for contract verification
-   npx hardhat vars set ETHERSCAN_API_KEY
-   ```
+npm / yarn / pnpm
 
-3. **Compile and test**
+MetaMask or any injected Ethereum-compatible wallet
 
-   ```bash
-   npm run compile
-   npm run test
-   ```
+Installation
+Clone the repository
+git clone <your-repo-url>
+cd EncryptedCertificationFilter
 
-4. **Deploy to local network**
+Install dependencies
+npm install
 
-   ```bash
-   # Start a local FHEVM-ready node
-   npx hardhat node
-   # Deploy to local network
-   npx hardhat deploy --network localhost
-   ```
+Set up environment variables
+npx hardhat vars set MNEMONIC
+npx hardhat vars set INFURA_API_KEY
+npx hardhat vars set ETHERSCAN_API_KEY   # optional
 
-5. **Deploy to Sepolia Testnet**
+Compile Contracts
+npm run compile
 
-   ```bash
-   # Deploy to Sepolia
-   npx hardhat deploy --network sepolia
-   # Verify contract on Etherscan
-   npx hardhat verify --network sepolia <CONTRACT_ADDRESS>
-   ```
+Run Tests
+npm run test
 
-6. **Test on Sepolia Testnet**
+Deploy to Local Network
+npx hardhat node
+npx hardhat deploy --network localhost
 
-   ```bash
-   # Once deployed, you can run a simple test on Sepolia.
-   npx hardhat test --network sepolia
-   ```
+Deploy to Sepolia FHEVM Testnet
+npx hardhat deploy --network sepolia
+npx hardhat verify --network sepolia 
 
-## 📁 Project Structure
+CONTRACT_ADDRESS: "0x5b30beD0BA9D796f1e58FA36130e513E3EBEEEe7"
 
-```
-fhevm-hardhat-template/
-├── contracts/           # Smart contract source files
-│   └── FHECounter.sol   # Example FHE counter contract
-├── deploy/              # Deployment scripts
-├── tasks/               # Hardhat custom tasks
-├── test/                # Test files
-├── hardhat.config.ts    # Hardhat configuration
-└── package.json         # Dependencies and scripts
-```
 
-## 📜 Available Scripts
+📁 Project Structure
+tinderdao-private-match/
+├── contracts/
+│   └── EncryptedCertificationFilter.sol     # Main FHE-enabled matchmaking contract
+├── deploy/                                  # Deployment scripts
+├── frontend/                                # Web UI (FHE Relayer integration)
+│   └── index.html
+├── hardhat.config.js                        # Hardhat + FHEVM config
+└── package.json                             # Dependencies and npm scripts
 
-| Script             | Description              |
-| ------------------ | ------------------------ |
-| `npm run compile`  | Compile all contracts    |
-| `npm run test`     | Run all tests            |
-| `npm run coverage` | Generate coverage report |
-| `npm run lint`     | Run linting checks       |
-| `npm run clean`    | Clean build artifacts    |
+📜 Available Scripts
+Command	Description
+npm run compile	Compile all smart contracts
+npm run test	Run unit tests
+npm run clean	Clean build artifacts
+npm run start	Launch frontend locally
+npx hardhat deploy --network sepolia	Deploy to FHEVM Sepolia testnet
+npx hardhat verify	Verify contract on Etherscan
+🔗 Frontend Integration
 
-## 📚 Documentation
+The frontend (pure HTML + vanilla JS) uses:
 
-- [FHEVM Documentation](https://docs.zama.ai/fhevm)
-- [FHEVM Hardhat Setup Guide](https://docs.zama.ai/protocol/solidity-guides/getting-started/setup)
-- [FHEVM Testing Guide](https://docs.zama.ai/protocol/solidity-guides/development-guide/hardhat/write_test)
-- [FHEVM Hardhat Plugin](https://docs.zama.ai/protocol/solidity-guides/development-guide/hardhat)
+@zama-fhe/relayer-sdk v0.3.0
 
-## 📄 License
+ethers.js v6.13
 
-This project is licensed under the BSD-3-Clause-Clear License. See the [LICENSE](LICENSE) file for details.
+Web3 wallet (MetaMask) connection
 
-## 🆘 Support
+Workflow:
 
-- **GitHub Issues**: [Report bugs or request features](https://github.com/zama-ai/fhevm/issues)
-- **Documentation**: [FHEVM Docs](https://docs.zama.ai)
-- **Community**: [Zama Discord](https://discord.gg/zama)
+Connect wallet
 
----
+Encrypt & Submit a preference query (desired criteria)
 
-**Built with ❤️ by the Zama team**
+Compute match handle via computeMatchHandle()
+
+Make public the result using makeMatchPublic()
+
+Publicly decrypt → get final result (MATCH ✅ / NO MATCH ❌)
+
+🧩 FHEVM Highlights
+
+Encrypted types: euint8, euint16
+
+Homomorphic operations: FHE.eq, FHE.and, FHE.or, FHE.gt, FHE.lt
+
+Secure access control using FHE.allow & FHE.allowThis
+
+Public decryption enabled with FHE.makePubliclyDecryptable
+
+Frontend encryption/decryption handled via Relayer SDK proofs
+
+📚 Documentation
+
+Zama FHEVM Overview
+
+Relayer SDK Guide
+
+Solidity Library: FHE.sol
+
+Ethers.js v6 Documentation
+
+🆘 Support
+
+🐛 GitHub Issues: Report bugs or feature requests
+
+💬 Zama Discord: discord.gg/zama-ai
+ — community help
+
+📄 License
+
+BSD-3-Clause-Clear License
+See the LICENSE
+ file for full details.
